@@ -1,0 +1,42 @@
+{
+  "name": "gulp-phantom",
+  "description": "phantomjs plugin for gulp",
+  "version": "0.0.1",
+  "homepage": "https://github.com/cognitom/gulp-phantom",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cognitom/gulp-phantom.git"
+  },
+  "author": {
+    "name": "Tsutomu Kawamura",
+    "url": "http://librize.com/"
+  },
+  "main": "./index.js",
+  "keywords": [
+    "gulpplugin",
+    "phantomjs",
+    "template"
+  ],
+  "dependencies": {
+    "coffee-script": "*",
+    "through2": "*",
+    "gulp-util": "*"
+  },
+  "devDependencies": {
+    "should": "*",
+    "mocha": "*",
+    "gulp": "*",
+    "gulp-coffee": "*"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --compilers coffee:coffee-script --require coffee-script/register -R spec"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
