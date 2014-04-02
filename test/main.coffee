@@ -16,6 +16,9 @@ createFile = (phantomFileName, contents) ->
 
 describe 'gulp-phantom', () ->
   describe 'phantom()', () ->
+    
+    @timeout 10000
+    
     it 'should pass file when it isNull()', (done) ->
       stream = phantom()
       emptyFile =
