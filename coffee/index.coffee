@@ -33,6 +33,7 @@ module.exports = (options = {}) ->
 		ext = if options.ext then options.ext else '.txt'
 		file.path = gutil.replaceExtension file.path, ext
 		
+		# PhantomJS
 		program = spawn cmnd, args.concat tmp
 		
 		# create buffer
