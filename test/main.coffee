@@ -51,3 +51,17 @@ describe 'gulp-phantom', () ->
         String(outputFile.contents).should.equal fs.readFileSync path.join(__dirname, 'expect/test.txt'), 'utf8'
         done()
       stream.write phantomFile
+    
+    it 'should trim newline at EOF', (done) ->
+      phantomFile = createFile 'trim.js'
+    
+      stream = phantom trim:true
+      stream.on 'data', (outputFile) ->
+        should.exist outputFile
+        should.exist outputFile.path
+        should.exist outputFile.relative
+        should.exist outputFile.contents
+        outputFile.path.should.equal path.join __dirname, 'fixtures', 'trim.txt'
+        String(outputFile.contents).should.equal fs.readFileSync path.join(__dirname, 'expect/trim.txt'), 'utf8'
+        done()
+      stream.write phantomFile

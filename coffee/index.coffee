@@ -47,6 +47,7 @@ module.exports = (options = {}) ->
 		# return data
 		program.stdout.on 'end', =>
 			fs.unlinkSync tmp
+			b = new Buffer b.toString('utf8').replace /[\n\r]+$/m, '' if options.trim
 			file.contents = b
 			@push file
 			callback()

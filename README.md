@@ -41,7 +41,8 @@ gulp.task 'phantom', ->
 
 ## Options
 
-The options are the same as what's supported by `phantomjs`.
+~~The options are the same as what's supported by `phantomjs`.~~
 
 - `ext: '.txt'`
-- `loadImages: true` Loads all inlined images: 'true' (default) or 'false'
+- `trim: false' Trim newline at the end of file: true or false (default)
+- `loadImages: true` Loads all inlined images: true (default) or false

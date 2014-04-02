@@ -54,6 +54,9 @@
       return program.stdout.on('end', (function(_this) {
         return function() {
           fs.unlinkSync(tmp);
+          if (options.trim) {
+            b = new Buffer(b.toString('utf8').replace(/[\n\r]+$/m, ''));
+          }
           file.contents = b;
           _this.push(file);
           return callback();
