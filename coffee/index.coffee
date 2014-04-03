@@ -29,7 +29,7 @@ module.exports = (options = {}) ->
 		tmp_contents = file.contents.toString 'utf8'
 		fs.writeFileSync tmp, tmp_contents
 		
-		# relace the extension
+		# replace the extension
 		ext = if options.ext then options.ext else '.txt'
 		file.path = gutil.replaceExtension file.path, ext
 		

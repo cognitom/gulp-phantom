@@ -1,4 +1,4 @@
-# gulp-phantom [![Build Status](https://travis-ci.org/cognitom/gulp-phantom.svg?branch=master)](https://travis-ci.org/cognitom/gulp-phantom)
+# gulp-phantom [![Build Status](https://travis-ci.org/cognitom/gulp-phantom.svg?branch=master)](https://travis-ci.org/cognitom/gulp-phantom) [![NPM version](https://badge.fury.io/js/gulp-phantom.svg)](http://badge.fury.io/js/gulp-phantom)
 
 A [PhantomJS](http://phantomjs.org/) plugin for [gulp](https://github.com/wearefractal/gulp).
 
