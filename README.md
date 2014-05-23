@@ -18,7 +18,7 @@ var gulp = require("gulp");
 var phantom = require("gulp-phantom");
 
 gulp.task('phantom', function(){
-  gulp.src("./phantom/*.(js|coffee)")
+  gulp.src("./phantom/*.js")
     .pipe(phantom({
       ext: csv
     }))
@@ -30,10 +30,12 @@ or write it in CoffeeScript.
 
 ```coffeescript
 gulp = requier 'gulp'
+coffee = require 'gulp-coffee'
 phantom = require 'phantom'
 
 gulp.task 'phantom', ->
-  gulp.src './phantom/*.(js|coffee)'
+  gulp.src './phantom/*.coffee'
+  .pipe coffee()
   .pipe phantom ext:'.csv'
   .pipe gulp.dest './csv/'
 ```
