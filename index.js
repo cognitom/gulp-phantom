@@ -23,8 +23,9 @@
     if ((options.loadImages != null) && !options.loadImages) {
       args.push('--load-images=false');
     }
+    args.push('/dev/stdin');
     return through.obj(function(file, encoding, callback) {
-      var b, ext, program, src, tmp, tmp_contents;
+      var b, ext, program;
       if (file.isNull()) {
         this.push(file);
         return callback();
@@ -33,13 +34,9 @@
         this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported'));
         return callback();
       }
-      src = file.path;
-      tmp = path.dirname(src) + path.sep + '___tmp___' + path.basename(src);
-      tmp_contents = file.contents.toString('utf8');
-      fs.writeFileSync(tmp, tmp_contents);
       ext = options.ext ? options.ext : '.txt';
       file.path = gutil.replaceExtension(file.path, ext);
-      program = spawn(cmnd, args.concat(tmp));
+      program = spawn(cmnd, args);
       b = new Buffer(0);
       program.stdout.on('readable', (function(_this) {
         return function() {
@@ -51,9 +48,8 @@
           return _results;
         };
       })(this));
-      return program.stdout.on('end', (function(_this) {
+      program.stdout.on('end', (function(_this) {
         return function() {
-          fs.unlinkSync(tmp);
           if (options.trim) {
             b = new Buffer(b.toString('utf8').replace(/[\n\r]+$/m, ''));
           }
@@ -62,6 +58,9 @@
           return callback();
         };
       })(this));
+      return program.stdin.write(file.contents, function() {
+        return program.stdin.end();
+      });
     });
   };
 

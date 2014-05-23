@@ -12,6 +12,7 @@ module.exports = (options = {}) ->
 	cmnd = 'phantomjs'
 	args = []
 	args.push '--load-images=false' if options.loadImages? and not options.loadImages
+	args.push '/dev/stdin'
 
 	through.obj (file, encoding, callback) ->
 		
@@ -23,18 +24,12 @@ module.exports = (options = {}) ->
 			@emit 'error', new gutil.PluginError PLUGIN_NAME, 'Streaming not supported'
 			return callback()
 		
-		# create temporary file because phantomjs doesn't support stdin
-		src = file.path
-		tmp = path.dirname(src) + path.sep + '___tmp___' + path.basename(src)
-		tmp_contents = file.contents.toString 'utf8'
-		fs.writeFileSync tmp, tmp_contents
-		
 		# replace the extension
 		ext = if options.ext then options.ext else '.txt'
 		file.path = gutil.replaceExtension file.path, ext
 		
 		# PhantomJS
-		program = spawn cmnd, args.concat tmp
+		program = spawn cmnd, args
 		
 		# create buffer
 		b = new Buffer 0
@@ -46,8 +41,10 @@ module.exports = (options = {}) ->
 		
 		# return data
 		program.stdout.on 'end', =>
-			fs.unlinkSync tmp
 			b = new Buffer b.toString('utf8').replace /[\n\r]+$/m, '' if options.trim
 			file.contents = b
 			@push file
 			callback()
+		
+		# write file buffer to program
+		program.stdin.write file.contents, -> program.stdin.end()
