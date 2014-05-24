@@ -20,8 +20,71 @@
     }
     cmnd = 'phantomjs';
     args = [];
+    if (options.cookiesFile) {
+      args.push('--cookies-file=' + options.cookiesFile);
+    }
+    if (options.config) {
+      args.push('--config=' + options.config);
+    }
+    if (options.debug) {
+      args.push('--debug=true');
+    }
+    if (options.diskCache) {
+      args.push('--disk-cache=true');
+    }
+    if (options.ignoreSslErrors) {
+      args.push('--ignore-ssl-errors=true');
+    }
     if ((options.loadImages != null) && !options.loadImages) {
       args.push('--load-images=false');
+    }
+    if (options.localStragePath) {
+      args.push('--local-storage-path=' + options.localStragePath);
+    }
+    if (options.localStrageQuota) {
+      args.push('--local-storage-quota=' + options.localStrageQuota);
+    }
+    if (options.localToRemoteUrlAccess) {
+      args.push('--local-to-remote-url-access=true');
+    }
+    if (options.maxDiskCacheSize) {
+      args.push('--max-disk-cache-size=' + options.maxDiskCacheSize);
+    }
+    if (options.outputEncoding) {
+      args.push('--output-encoding=' + options.outputEncoding);
+    }
+    if (options.remoteDebuggerPort) {
+      args.push('--remote-debugger-port=' + options.remoteDebuggerPort);
+    }
+    if (options.remoteDebuggerAutorun) {
+      args.push('--remote-debugger-autorun=true');
+    }
+    if (options.proxy) {
+      args.push('--proxy=' + options.proxy);
+    }
+    if (options.proxyAuth) {
+      args.push('--proxy-auth=' + options.proxyAuth);
+    }
+    if (options.proxyType) {
+      args.push('--proxy-type=' + options.proxyType);
+    }
+    if (options.scriptEncoding) {
+      args.push('--script-encoding=' + options.scriptEncoding);
+    }
+    if ((options.webSecurity != null) && !options.webSecurity) {
+      args.push('--web-security=false');
+    }
+    if (options.sslProtocol) {
+      args.push('--ssl-protocol=' + options.sslProtocol);
+    }
+    if (options.sslCertificatesPath) {
+      args.push('--ssl-certificates-path=' + options.sslCertificatesPath);
+    }
+    if (options.help) {
+      args.push('--help');
+    }
+    if (options.version) {
+      args.push('--version');
     }
     args.push('/dev/stdin');
     return through.obj(function(file, encoding, callback) {
