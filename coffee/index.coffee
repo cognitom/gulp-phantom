@@ -23,6 +23,9 @@ module.exports = (options = {}) ->
 		if file.isStream()
 			@emit 'error', new gutil.PluginError PLUGIN_NAME, 'Streaming not supported'
 			return callback()
+			
+		# Current Dir
+		cd = path.dirname file.path
 		
 		# replace the extension
 		ext = if options.ext then options.ext else '.txt'
@@ -46,5 +49,13 @@ module.exports = (options = {}) ->
 			@push file
 			callback()
 		
+		# replace relative path to absoulute
+		str = file.contents.toString 'utf8'
+		str = str.replace /require\('.\//g, "require('#{cd}/"
+		str = str.replace /require\(".\//g, "require(\"#{cd}/"
+		str = str.replace /require\('..\//g, "require('#{cd}/../"
+		str = str.replace /require\("..\//g, "require(\"#{cd}/../"
+		
 		# write file buffer to program
-		program.stdin.write file.contents, -> program.stdin.end()
+		stdin = new Buffer str
+		program.stdin.write stdin, -> program.stdin.end()
