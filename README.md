@@ -29,7 +29,7 @@ gulp.task('phantom', function(){
 or write it in CoffeeScript. When using Coffee in PhantomJS, `coffee()` needed.
 
 ```coffeescript
-gulp = requier 'gulp'
+gulp = require 'gulp'
 coffee = require 'gulp-coffee'
 phantom = require 'phantom'
 
