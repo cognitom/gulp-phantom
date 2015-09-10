@@ -86,7 +86,6 @@
     if (options.version) {
       args.push('--version');
     }
-    args.push('/dev/stdin');
     return through.obj(function(file, encoding, callback) {
       var b, cd, ext, program, stdin, str;
       if (file.isNull()) {
@@ -99,6 +98,7 @@
       }
       cd = path.dirname(file.path);
       ext = options.ext ? options.ext : '.txt';
+      args.push(file.path);
       file.path = gutil.replaceExtension(file.path, ext);
       program = spawn(cmnd, args);
       b = new Buffer(0);
